@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neighbourhood</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* -------------  COLOURS ------------- */
+:root{
+  --grad-a:#6366f1;   /* indigo‑500 */
+  --grad-b:#ec4899;   /* pink‑500   */
+  --grad-c:#f59e0b;   /* amber‑500  */
+  --grad-d:#10b981;   /* emerald‑500*/
+  --bg:#f1f5f9;      /* slate‑100  */
+  --text:#0f172a;    /* slate‑900  */
+  --card:#ffffffcc;  /* translucent */
+  --brd:#cbd5e1;     /* slate‑300  */
+}
+body.dark{
+  --bg:#0f172a;       /* slate-900 */
+  --text:#f8fafc;     /* slate-50 */
+  --card:#1e293b;     /* slate-800 */
+  --brd:#334155;      /* slate-700 */
+  --grad-a:#818cf8;   /* indigo-400 */
+  --grad-b:#f472b6;   /* pink-400 */
+  --grad-c:#fbbf24;   /* amber-400 */
+}
+/* -------------  GLOBAL -------------- */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Poppins',sans-serif;line-height:1.5;
+  background:var(--bg);color:var(--text);min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:2.5rem 1rem;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(circle at 30% 30%,var(--grad-b) 0%,transparent 60%),
+             radial-gradient(circle at 70% 70%,var(--grad-d) 0%,transparent 60%);
+  filter:blur(80px);opacity:.4;animation:hue 18s linear infinite;
+}
+@keyframes hue{to{filter:hue-rotate(360deg) blur(80px)}}
+
+/* -------------  HEADER -------------- */
+header{
+  text-align:center;margin-bottom:3.3rem;
+  animation:fadeDown .8s ease-out both;
+}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1}}
+header h1{
+  font-size:2.7rem;font-weight:700;margin-bottom:.4rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-c));
+  -webkit-background-clip:text;color:transparent;
+}
+header p{font-size:1.15rem;font-weight:500;opacity:.8}
+
+/* -------------  DARK MODE TOGGLE -------------- */
+.toggle{
+  position:fixed;top:1rem;right:1rem;
+  background:var(--grad-a);color:#fff;border:none;
+  padding:.4rem .8rem;border-radius:50%;font-size:1.2rem;
+  cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.15);transition:.3s transform}
+.toggle:hover{transform:scale(1.1)}
+
+/* -------------  CARDS GRID -------------- */
+.grid{
+  display:grid;gap:2rem;padding:0 2rem 3rem;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.card{
+  background:var(--card);border:1px solid var(--brd);
+  border-radius:1.25rem;padding:2.5rem 2rem;text-align:center;
+  box-shadow:0 4px 8px rgba(0,0,0,.06);cursor:pointer;
+  transition:.4s transform,.4s box-shadow;
+  margin-bottom:1.5rem; /* Added space between cards */
+}
+.card:hover{
+  transform:translateY(-8px) rotateX(6deg) scale(1.05);
+  box-shadow:0 12px 20px rgba(0,0,0,.12)}
+.icon{font-size:3rem;margin-bottom:1rem;
+      background:linear-gradient(45deg,var(--grad-a),var(--grad-b));
+      -webkit-background-clip:text;color:transparent;display:inline-block}
+.card h2{font-size:1.5rem;font-weight:600;margin-bottom:.4rem}
+.card p{color:var(--secondary)}
+
+/* -------------  CONTAINER -------------- */
+.container{
+  width:100%;max-width:440px;
+  background:var(--card);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid var(--brd);border-radius:1.35rem;padding:2.4rem 2rem;
+  box-shadow:0 12px 25px rgba(0,0,0,.12);
+  transform:translateY(40px);opacity:0;
+  animation:slideUp .9s .2s cubic-bezier(.25,.8,.25,1) forwards;
+}
+@keyframes slideUp{to{transform:none;opacity:1}}
+
+/* -------------  FORM --------------- */
+label{display:block;margin-bottom:.4rem;font-weight:500}
+input{
+  width:100%;padding:.8rem 1rem;margin-bottom:1rem;font-size:1rem;
+  border:1px solid var(--brd);border-radius:.85rem;transition:border .3s,box-shadow .3s;
+  background:rgba(255,255,255,.6);
+}
+input:focus{
+  outline:none;border-color:var(--grad-a);
+  box-shadow:0 0 0 3px #6366f155;
+}
+small{display:none;color:#dc2626;font-size:.82rem;margin-top:-.55rem;margin-bottom:.8rem}
+button{
+  width:100%;padding:.9rem 1rem;margin-top:.1rem;
+  border:none;border-radius:1rem;font-size:1.1rem;font-weight:600;color:#fff;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b),var(--grad-c));
+  background-size:200% 200%;animation:moveBg 6s ease infinite;
+  cursor:pointer;transform:translateZ(0);transition:box-shadow .3s,transform .3s;
+}
+@keyframes moveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+button:hover{box-shadow:0 8px 18px rgba(0,0,0,.18);transform:translateY(-3px)}
+</style>
+</head>
+<body>
+<button class="toggle" id="toggleBtn">🌗</button>
+
+<header>
+  <h1>Neighbourhood</h1>
+  <p>Your community information hub</p>
+</header>
+
+<section id="homePage">
+  <div class="grid">
+    <div class="card">
+      <span class="icon">📅</span>
+      <h2>Events</h2>
+      <p>Check upcoming events</p>
+    </div>
+    <div class="card">
+      <span class="icon">📢</span>
+      <h2>Notices</h2>
+      <p>Latest announcements</p>
+    </div>
+    <div class="card">
+      <span class="icon">👥</span>
+      <h2>Residents</h2>
+      <p>Resident directory</p>
+    </div>
+    <div class="card">
+      <span class="icon">🛠️</span>
+      <h2>Services</h2>
+      <p>Service providers</p>
+    </div>
+    <div class="card">
+      <span class="icon">✉️</span>
+      <h2>Feedback</h2>
+      <p>Send feedback</p>
+    </div>
+  </div>
+  <button onclick="showRegistrationPage()">Go to Registration</button>
+</section>
+
+<section class="container" id="regSec" style="display:none;">
+  <h2>Resident Registration</h2>
+  <form id="regForm">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="e.g. Aarav Sharma" required>
+    <small id="err-name">Please enter your name</small>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+    <small id="err-email">Enter a valid email</small>
+
+    <label for="flat">Flat Number</label>
+    <input type="text" id="flat" name="flat" placeholder="A-302" required>
+    <small id="err-flat">Flat number required</small>
+
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<script>
+/* ----------  Dark‑mode toggle & persistence ---------- */
+const toggleBtn = document.getElementById('toggleBtn');
+const setDark = b => {
+  document.body.classList.toggle('dark', b);
+  toggleBtn.textContent = b ? '🌞' : '🌗';
+  localStorage.setItem('society-dark', b);
+};
+setDark(JSON.parse(localStorage.getItem('society-dark') || 'false'));
+toggleBtn.onclick = () => setDark(!document.body.classList.contains('dark'));
+
+/* ----------  Registration Form Validation ---------- */
+const frm = document.getElementById('regForm');
+const err = id => document.getElementById(id);
+frm.addEventListener('submit', e => {
+  e.preventDefault();
+  let ok = true;
+  const name = frm.name.value.trim(), email = frm.email.value.trim(), flat = frm.flat.value.trim();
+  if (!name) { err('err-name').style.display = 'block'; ok = false; } else err('err-name').style.display = 'none';
+  if (!/^[\w-.]+@[\w-]+\.[A-Za-z]{2,}$/.test(email)) { err('err-email').style.display = 'block'; ok = false; } else err('err-email').style.display = 'none';
+  if (!flat) { err('err-flat').style.display = 'block'; ok = false; } else err('err-flat').style.display = 'none';
+  if (ok) {
+    alert(`Thank you, ${name}! Flat ${flat} has been registered.`);
+    frm.reset();
+  }
+});
+
+/* ----------  Show Registration Page ---------- */
+function showRegistrationPage() {
+  document.getElementById('homePage').style.display = 'none';
+  document.getElementById('regSec').style.display = 'block';
+}
+</script>
+</body>
+</html>
